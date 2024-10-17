@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Fitness Journey</title>
+    <style>
+        /* Reset some default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Set the body to prevent scrolling and use flex layout */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #121212;
+            color: #000000;
+            line-height: 1.6;
+            overflow: hidden; /* Prevent scrolling */
+            height: 100vh;    /* Full viewport height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #e74c3c;
+            color: #000000;
+            padding: 20px 0;
+            flex-shrink: 0; /* Prevent header from shrinking */
+        }
+
+        header h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        header h2 {
+            text-align: center;
+            font-weight: normal;
+            font-size: 24px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            flex-grow: 1;       /* Allow container to grow */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;    /* Hide overflow */
+        }
+
+        .photo-gallery, .exercises {
+            flex-grow: 1;        /* Allow sections to grow */
+            overflow: hidden;    /* Hide overflow */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .photo-gallery h3, .exercises h3 {
+            margin: 10px 0;
+            text-align: center;
+            color: #e74c3c;
+            flex-shrink: 0;      /* Prevent h3 from shrinking */
+        }
+
+        /* Swiper styles */
+        .swiper-container {
+            width: 100%;
+            flex-grow: 1;       /* Allow Swiper to grow */
+            overflow: hidden;   /* Hide overflow */
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gallery-swiper .swiper-slide a img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+            cursor: pointer;
+        }
+
+        .exercises-swiper .swiper-slide li {
+            list-style: none;
+            background: #e74c3c;
+            color: #000000;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .exercises-swiper .swiper-slide li:hover {
+            transform: scale(1.05);
+        }
+
+        .exercise {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .exercise img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 2px solid #333;
+        }
+
+        .exercise span {
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        h3 {
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            color: #e74c3c;
+            text-align: center;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background-color: #121212;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90vw;
+            height: 90vh;
+            max-width: 800px;
+            max-height: 800px;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #000000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .gallery-swiper .swiper-slide a img,
+            .exercises-swiper .swiper-slide li {
+                max-width: 150px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-swiper .swiper-slide a img,
+            .exercises-swiper .swiper-slide li {
+                max-width: 100px;
+            }
+        }
+    </style>
+    <!-- Include Lightbox CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
+    <!-- Include Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+</head>
+<body>
+    <header>
+        <h1>UNSATISFIED - Ege Fitness</h1>
+        <h2>Ege Tekin</h2>
+    </header>
+
+    <div class="container">
+        <!-- Photo Gallery -->
+        <div class="photo-gallery">
+            <h3>Photos</h3>
+            <div class="swiper-container gallery-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Swiper slides -->
+                    <div class="swiper-slide">
+                        <a href="#" data-lightbox="mygallery"><img src="https://pbs.twimg.com/profile_images/1350858632603312131/PVyKITHm_400x400.jpg" alt="Photo 1"/></a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="#" data-lightbox="mygallery"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxwS9z6qymM3iqsXQrv05fBOdgdhdEWBk9IQ&s" alt="Photo 2"/></a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="#" data-lightbox="mygallery"><img src="https://i.scdn.co/image/ab67616d0000b27376f598157b318a79f26c79e5" alt="Photo 3"/></a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="#" data-lightbox="mygallery"><img src="https://pbs.twimg.com/profile_images/1350858632603312131/PVyKITHm_400x400.jpg" alt="Photo 4"/></a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="#" data-lightbox="mygallery"><img src="https://pbs.twimg.com/profile_images/1350858632603312131/PVyKITHm_400x400.jpg" alt="Photo 5"/></a>
+                    </div>
+                    <!-- Add more photos as needed -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercises Section -->
+        <div class="exercises">
+            <h3>Exercises</h3>
+            <div class="swiper-container exercises-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Swiper slides -->
+                    <div class="swiper-slide">
+                        <li onclick="toggleProgress(this, 'benchPressChart')">
+                            <div class="exercise">
+                                <img src="https://media.istockphoto.com/id/1430373135/photo/bench-press-training.jpg?s=612x612&w=0&k=20&c=hMpQPGi7giPutD7dyE2Z7MsICfK3zsUrAnxxjvW2qwQ=" alt="Bench Press"/>
+                                <span>Bench Press</span>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="swiper-slide">
+                        <li onclick="toggleProgress(this, 'overHeadPressChart')">
+                            <div class="exercise">
+                                <img src="https://media.gettyimages.com/id/639340616/photo/weight-training-at-gym.jpg?s=612x612&w=gi&k=20&c=gsCYGVTNubc9fdrgWP9FfF57qxt5gR0YhqCR4T7mvfQ=" alt="Overhead Press"/>
+                                <span>Overhead Press</span>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="swiper-slide">
+                        <li onclick="toggleProgress(this, 'deadliftChart')">
+                            <div class="exercise">
+                                <img src="https://c8.alamy.com/comp/RW4Y5P/rear-view-of-a-muscular-beautiful-woman-ready-to-do-deadlift-exercise-with-barbell-at-the-gym-RW4Y5P.jpg" alt="Deadlift"/>
+                                <span>Deadlift</span>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="swiper-slide">
+                        <li onclick="toggleProgress(this, 'legPressChart')">
+                            <div class="exercise">
+                                <img src="https://as1.ftcdn.net/v2/jpg/02/16/62/74/1000_F_216627406_lwUgwlxG9D1TbyJhXg97CHFIonEzgZOH.jpg" alt="Leg Press"/>
+                                <span>Leg Press</span>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="swiper-slide">
+                        <li onclick="toggleProgress(this, 'pullUpsChart')">
+                            <div class="exercise">
+                                <img src="https://i.ytimg.com/vi/dIt_AhchIyQ/hqdefault.jpg" alt="Pull-up"/>
+                                <span>Pull-up</span>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="swiper-slide">
+                        <li onclick="toggleProgress(this, 'pushUpsChart')">
+                            <div class="exercise">
+                                <img src="https://media.istockphoto.com/id/498315681/photo/feeling-good-looking-great-from-working-out-regularly.jpg?s=612x612&w=0&k=20&c=duQJAouxh66t4bmpiEWuYuQFyWRnHi53G1EusiZzYd0=" alt="Push-up"/>
+                                <span>Push-up</span>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="swiper-slide">
+                        <li onclick="toggleProgress(this, 'sitUpChart')">
+                            <div class="exercise">
+                                <img src="https://media.istockphoto.com/id/493548216/photo/sporty-young-woman-doing-sits-up-at-gym.jpg?s=612x612&w=0&k=20&c=oiIFW5ND3hd8ubFL_E-dfALUOhf-itG029uS0UpMRrI=" alt="Sit-up"/>
+                                <span>Sit-up</span>
+                            </div>
+                        </li>
+                    </div>
+                    <div class="swiper-slide">
+                        <li onclick="toggleProgress(this, 'dipsChart')">
+                            <div class="exercise">
+                                <img src="https://welltech.com/wp-content/uploads/2022/09/What-Muscles-Do-Dips-Work-Most.jpg" alt="Dips"/>
+                                <span>Dips</span>
+                            </div>
+                        </li>
+                    </div>
+                    <!-- Add more exercises as needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <canvas id="modalChart" width="600" height="600"></canvas>
+        </div>
+    </div>
+
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Include Lightbox JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <!-- Include Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // Initialize Swiper for gallery with breakpoints
+        var gallerySwiper = new Swiper('.gallery-swiper', {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            loop: true,
+            centeredSlides: true,
+            grabCursor: true,
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                },
+                600: {
+                    slidesPerView: 2,
+                },
+                900: {
+                    slidesPerView: 3,
+                }
+            }
+        });
+
+        // Initialize Swiper for exercises with breakpoints
+        var exercisesSwiper = new Swiper('.exercises-swiper', {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            loop: true,
+            centeredSlides: true,
+            grabCursor: true,
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                },
+                600: {
+                    slidesPerView: 2,
+                },
+                900: {
+                    slidesPerView: 3,
+                }
+            }
+        });
+
+        function toggleProgress(element, chartId) {
+            // Show the modal
+            var modal = document.getElementById('modal');
+            modal.style.display = "block";
+
+            // Remove previous chart instance if any
+            if(window.currentChart) {
+                window.currentChart.destroy();
+            }
+
+            // Create new chart
+            createChart('modalChart', chartId);
+        }
+
+        function closeModal() {
+            var modal = document.getElementById('modal');
+            modal.style.display = "none";
+            // Destroy chart when closing modal
+            if(window.currentChart) {
+                window.currentChart.destroy();
+                window.currentChart = null;
+            }
+        }
+
+        // Close modal when clicking outside the modal content
+        window.onclick = function(event) {
+            var modal = document.getElementById('modal');
+            if(event.target == modal) {
+                closeModal();
+            }
+        }
+
+        function createChart(canvasId, chartId) {
+            var ctx = document.getElementById(canvasId).getContext('2d');
+            var data, label;
+
+            // Define data based on chartId
+            if (chartId === 'benchPressChart') {
+                label = 'Bench Press Progress';
+                data = {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Weight (kg)',
+                        data: [60, 70, 80, 90, 100],
+                        backgroundColor: 'rgba(231, 76, 60, 0.2)',
+                        borderColor: 'rgba(231, 76, 60, 1)',
+                        borderWidth: 2
+                    }]
+                };
+            } else if (chartId === 'overHeadPressChart') {
+                label = 'Overhead Press Progress';
+                data = {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Weight (kg)',
+                        data: [45, 50, 60, 70, 80],
+                        backgroundColor: 'rgba(46, 204, 113, 0.2)',
+                        borderColor: 'rgba(46, 204, 113, 1)',
+                        borderWidth: 2
+                    }]
+                };
+            } else if (chartId === 'deadliftChart') {
+                label = 'Deadlift Progress';
+                data = {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Weight (kg)',
+                        data: [80, 100, 120, 140, 160],
+                        backgroundColor: 'rgba(241, 196, 15, 0.2)',
+                        borderColor: 'rgba(241, 196, 15, 1)',
+                        borderWidth: 2
+                    }]
+                };
+            } else if (chartId === 'legPressChart') {
+                label = 'Leg Press Progress';
+                data = {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Weight (kg)',
+                        data: [100, 150, 200, 250, 300],
+                        backgroundColor: 'rgba(26, 188, 156, 0.2)',
+                        borderColor: 'rgba(26, 188, 156, 1)',
+                        borderWidth: 2
+                    }]
+                };
+            } else if (chartId === 'pullUpsChart') {
+                label = 'Pull-ups Progress';
+                data = {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Reps',
+                        data: [5, 8, 10, 12, 15],
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 2
+                    }]
+                };
+            } else if (chartId === 'pushUpsChart') {
+                label = 'Push-ups Progress';
+                data = {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Reps',
+                        data: [20, 30, 35, 40, 50],
+                        backgroundColor: 'rgba(155, 89, 182, 0.2)',
+                        borderColor: 'rgba(155, 89, 182, 1)',
+                        borderWidth: 2
+                    }]
+                };
+            } else if (chartId === 'sitUpChart') {
+                label = 'Sit-up Progress';
+                data = {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Reps',
+                        data: [30, 35, 40, 45, 50],
+                        backgroundColor: 'rgba(192, 57, 43, 0.2)',
+                        borderColor: 'rgba(192, 57, 43, 1)',
+                        borderWidth: 2
+                    }]
+                };
+            } else if (chartId === 'dipsChart') {
+                label = 'Dips Progress';
+                data = {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [{
+                        label: 'Reps',
+                        data: [10, 12, 15, 18, 20],
+                        backgroundColor: 'rgba(44, 62, 80, 0.2)',
+                        borderColor: 'rgba(44, 62, 80, 1)',
+                        borderWidth: 2
+                    }]
+                };
+            }
+
+            window.currentChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: label,
+                            color: '#000000'
+                        },
+                        legend: {
+                            labels: {
+                                color: '#000000'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#000000'
+                            },
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#000000'
+                            },
+                            grid: {
+                                color: 'rgba(255,255,255,0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
