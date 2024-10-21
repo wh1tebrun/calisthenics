@@ -1,5 +1,6 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>UNSATISFIED - Ege Fitness</title>
@@ -10,25 +11,48 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none; /* Make content not selectable */
+            user-select: none;
+            /* Make content not selectable */
         }
 
         /* Set the body to prevent scrolling and use flex layout */
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background-color: #121212;
-            color: #000000;
-            overflow: hidden; /* Prevent scrolling */
-            height: 100vh;    /* Full viewport height */
+            color: #ffffff;
+            /* Changed to white for better contrast */
+            height: 100vh;
+            /* Full viewport height */
             display: flex;
             flex-direction: column;
+        }
+
+        /* unvisited link */
+        a:link {
+            color: red;
+        }
+
+        /* visited link */
+        a:visited {
+            color: rgb(81, 0, 255);
+        }
+
+        /* mouse over link */
+        a:hover {
+            color: hotpink;
+        }
+
+        /* selected link */
+        a:active {
+            color: blue;
         }
 
         header {
             background: #e74c3c;
             color: #000000;
             padding: 20px 0;
-            flex-shrink: 0; /* Prevent header from shrinking */
+            flex-shrink: 0;
+            /* Prevent header from shrinking */
         }
 
         header h1 {
@@ -49,45 +73,133 @@
         }
 
         .social-media a {
-            color: #000000; /* Black color to match header text */
+            color: #000000;
+            /* Black color to match header text */
             margin: 0 10px;
             font-size: 24px;
             transition: color 0.3s;
         }
 
         .social-media a:hover {
-            color: #ffffff; /* Change color on hover */
+            color: #ffffff;
+            /* Change color on hover */
         }
 
         .container {
             width: 90%;
             max-width: 1000px;
             margin: 0 auto;
-            flex-grow: 1;       /* Allow container to grow */
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;    /* Hide overflow */
-        }
-
-        .photo-gallery, .exercises {
-            flex-grow: 1;        /* Allow sections to grow */
-            overflow: hidden;    /* Hide overflow */
+            flex-grow: 1;
+            /* Allow container to grow */
             display: flex;
             flex-direction: column;
         }
 
-        .photo-gallery h3, .exercises h3 {
+        /* Citations styling */
+        .citations {
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        .citations blockquote {
+            background-color: #e74c3c;
+            /* Match the header background color */
+            color: #000000;
+            border-left: 5px solid #ffffff;
+            margin: 20px auto;
+            padding: 20px;
+            font-size: 18px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .citations blockquote:before {
+            content: open-quote;
+            font-size: 50px;
+            position: absolute;
+            left: 10px;
+            top: -10px;
+            color: #ffffff;
+        }
+
+        .citations blockquote:after {
+            content: close-quote;
+            font-size: 50px;
+            position: absolute;
+            right: 10px;
+            bottom: -30px;
+            color: #ffffff;
+        }
+
+        /* Top Projects styling */
+        .top-projects {
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        .top-projects h3 {
+            color: #e74c3c;
+            /* Match the header color */
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 10px;
+        }
+
+        .top-projects ol {
+            list-style: none;
+            padding: 0;
+            counter-reset: item;
+        }
+
+        .top-projects li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .top-projects li img {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 5px;
+        }
+
+        .top-projects li:before {
+            content: counter(item) ". ";
+            counter-increment: item;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-right: 5px;
+        }
+
+        .photo-gallery,
+        .exercises {
+            flex-grow: 1;
+            /* Allow sections to grow */
+            overflow: hidden;
+            /* Hide overflow */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .photo-gallery h3,
+        .exercises h3 {
             margin: 10px 0;
             text-align: center;
             color: #e74c3c;
-            flex-shrink: 0;      /* Prevent h3 from shrinking */
+            flex-shrink: 0;
+            /* Prevent h3 from shrinking */
         }
 
         /* Swiper styles */
         .swiper-container {
             width: 100%;
-            flex-grow: 1;       /* Allow Swiper to grow */
-            overflow: hidden;   /* Hide overflow */
+            flex-grow: 1;
+            /* Allow Swiper to grow */
+            overflow: hidden;
+            /* Hide overflow */
         }
 
         .swiper-slide {
@@ -102,7 +214,7 @@
             height: 320px;
             object-fit: cover;
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
             cursor: pointer;
         }
 
@@ -143,7 +255,7 @@
             bottom: 0;
             width: 100%;
             text-align: center;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             color: #ffffff;
             padding: 5px 0;
         }
@@ -165,7 +277,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
         .modal-content {
@@ -201,6 +313,7 @@
 
         /* Responsive Design */
         @media (max-width: 1080px) {
+
             .gallery-swiper .swiper-slide a img,
             .exercises-swiper .swiper-slide li,
             .exercise,
@@ -211,6 +324,7 @@
         }
 
         @media (max-width: 600px) {
+
             .gallery-swiper .swiper-slide a img,
             .exercises-swiper .swiper-slide li,
             .exercise,
@@ -227,6 +341,7 @@
     <!-- Include Font Awesome for social media icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <header>
         <h1>UNSATISFIED - Ege Fitness</h1>
@@ -240,6 +355,42 @@
     </header>
 
     <div class="container">
+        <!-- Citations Section -->
+        <div class="citations">
+            <blockquote>
+                "Hey, hey, hey! What's happening, YouTube? Ege Fitness back in business—actually, always in business!" -
+                Ege Fitness
+            </blockquote>
+        </div>
+
+        <!-- Top Projects Section -->
+        <div class="top-projects">
+            <h3>Shorts</h3>
+            <ol>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"
+                        alt="Yarrak Hasan Logo">
+                    <a href="https://www.instagram.com/p/DBWUhejt0b8/" target="_blank" class="hyperlink">Yarrak Hasan -
+                        Instagram</a>
+                </li>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"
+                        alt="Yarrak Hasan Logo">
+                    <a href="https://www.instagram.com/p/DBWUhejt0b8/" target="_blank">Yarrak Hasan - Instagram</a>
+                </li>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"
+                        alt="Yarrak Hasan Logo">
+                    <a href="https://www.instagram.com/p/DBWUhejt0b8/" target="_blank">Yarrak Hasan - Instagram</a>
+                </li>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"
+                        alt="Yarrak Hasan Logo">
+                    <a href="https://www.instagram.com/p/DBWUhejt0b8/" target="_blank">Yarrak Hasan - Instagram</a>
+                </li>
+            </ol>
+        </div>
+
         <!-- Photo Gallery -->
         <div class="photo-gallery">
             <h3>Photos</h3>
@@ -247,19 +398,27 @@
                 <div class="swiper-wrapper">
                     <!-- Swiper slides -->
                     <div class="swiper-slide">
-                        <a href="" data-lightbox="mygallery"><img src="https://pbs.twimg.com/media/FcJr7fnXoAAfv-h.jpg" alt="Photo 1"/></a>
+                        <a href="" data-lightbox="mygallery"><img src="https://pbs.twimg.com/media/FcJr7fnXoAAfv-h.jpg"
+                                alt="Photo 1" /></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img src="https://cdn.bolgegundem.com.tr/gallery/12381_2.jpg" alt="Photo 2"/></a>
+                        <a href="#" data-lightbox="mygallery"><img
+                                src="https://cdn.bolgegundem.com.tr/gallery/12381_2.jpg" alt="Photo 2" /></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img src="https://img-s1.onedio.com/id-62b219e91e6cbf96537d9106/rev-0/w-600/h-750/f-jpg/s-a7f0cfbb4aa6979528b47124ccce9ea0c48663e0.jpg" alt="Photo 3"/></a>
+                        <a href="#" data-lightbox="mygallery"><img
+                                src="https://img-s1.onedio.com/id-62b219e91e6cbf96537d9106/rev-0/w-600/h-750/f-jpg/s-a7f0cfbb4aa6979528b47124ccce9ea0c48663e0.jpg"
+                                alt="Photo 3" /></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img src="https://www.technopat.net/sosyal/eklenti/d948f88b-18b1-4e0d-b22a-1eda8af72e3e-jpeg.1472637/" alt="Photo 4"/></a>
+                        <a href="#" data-lightbox="mygallery"><img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRKTZOANfGO0AwU9bUBqbI21lDtMlf4NqbgQ&s"
+                                alt="Photo 4" /></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img src="https://gymsozluk.com/wp-content/uploads/2023/06/Ege-Fitness.webp" alt="Photo 5"/></a>
+                        <a href="#" data-lightbox="mygallery"><img
+                                src="https://gymsozluk.com/wp-content/uploads/2023/06/Ege-Fitness.webp"
+                                alt="Photo 5" /></a>
                     </div>
                     <!-- Add more photos as needed -->
                 </div>
@@ -275,7 +434,8 @@
                     <div class="swiper-slide">
                         <li onclick="toggleProgress(this, 'benchPressChart')">
                             <div class="exercise">
-                                <img src="https://media.istockphoto.com/id/1430373135/photo/bench-press-training.jpg?s=612x612&w=0&k=20&c=hMpQPGi7giPutD7dyE2Z7MsICfK3zsUrAnxxjvW2qwQ=" alt="Bench Press"/>
+                                <img src="https://media.istockphoto.com/id/1430373135/photo/bench-press-training.jpg?s=612x612&w=0&k=20&c=hMpQPGi7giPutD7dyE2Z7MsICfK3zsUrAnxxjvW2qwQ="
+                                    alt="Bench Press" />
                                 <span>Bench Press</span>
                             </div>
                         </li>
@@ -283,7 +443,8 @@
                     <div class="swiper-slide">
                         <li onclick="toggleProgress(this, 'overHeadPressChart')">
                             <div class="exercise">
-                                <img src="https://media.gettyimages.com/id/639340616/photo/weight-training-at-gym.jpg?s=612x612&w=gi&k=20&c=gsCYGVTNubc9fdrgWP9FfF57qxt5gR0YhqCR4T7mvfQ=" alt="Overhead Press"/>
+                                <img src="https://media.gettyimages.com/id/639340616/photo/weight-training-at-gym.jpg?s=612x612&w=gi&k=20&c=gsCYGVTNubc9fdrgWP9FfF57qxt5gR0YhqCR4T7mvfQ="
+                                    alt="Overhead Press" />
                                 <span>Overhead Press</span>
                             </div>
                         </li>
@@ -291,7 +452,8 @@
                     <div class="swiper-slide">
                         <li onclick="toggleProgress(this, 'deadliftChart')">
                             <div class="exercise">
-                                <img src="https://c8.alamy.com/comp/RW4Y5P/rear-view-of-a-muscular-beautiful-woman-ready-to-do-deadlift-exercise-with-barbell-at-the-gym-RW4Y5P.jpg" alt="Deadlift"/>
+                                <img src="https://c8.alamy.com/comp/RW4Y5P/rear-view-of-a-muscular-beautiful-woman-ready-to-do-deadlift-exercise-with-barbell-at-the-gym-RW4Y5P.jpg"
+                                    alt="Deadlift" />
                                 <span>Deadlift</span>
                             </div>
                         </li>
@@ -299,7 +461,8 @@
                     <div class="swiper-slide">
                         <li onclick="toggleProgress(this, 'legPressChart')">
                             <div class="exercise">
-                                <img src="https://as1.ftcdn.net/v2/jpg/02/16/62/74/1000_F_216627406_lwUgwlxG9D1TbyJhXg97CHFIonEzgZOH.jpg" alt="Leg Press"/>
+                                <img src="https://as1.ftcdn.net/v2/jpg/02/16/62/74/1000_F_216627406_lwUgwlxG9D1TbyJhXg97CHFIonEzgZOH.jpg"
+                                    alt="Leg Press" />
                                 <span>Leg Press</span>
                             </div>
                         </li>
@@ -307,7 +470,7 @@
                     <div class="swiper-slide">
                         <li onclick="toggleProgress(this, 'pullUpsChart')">
                             <div class="exercise">
-                                <img src="https://i.ytimg.com/vi/dIt_AhchIyQ/hqdefault.jpg" alt="Pull-up"/>
+                                <img src="https://i.ytimg.com/vi/dIt_AhchIyQ/hqdefault.jpg" alt="Pull-up" />
                                 <span>Pull-up</span>
                             </div>
                         </li>
@@ -315,7 +478,8 @@
                     <div class="swiper-slide">
                         <li onclick="toggleProgress(this, 'pushUpsChart')">
                             <div class="exercise">
-                                <img src="https://media.istockphoto.com/id/498315681/photo/feeling-good-looking-great-from-working-out-regularly.jpg?s=612x612&w=0&k=20&c=duQJAouxh66t4bmpiEWuYuQFyWRnHi53G1EusiZzYd0=" alt="Push-up"/>
+                                <img src="https://media.istockphoto.com/id/498315681/photo/feeling-good-looking-great-from-working-out-regularly.jpg?s=612x612&w=0&k=20&c=duQJAouxh66t4bmpiEWuYuQFyWRnHi53G1EusiZzYd0="
+                                    alt="Push-up" />
                                 <span>Push-up</span>
                             </div>
                         </li>
@@ -323,7 +487,8 @@
                     <div class="swiper-slide">
                         <li onclick="toggleProgress(this, 'sitUpChart')">
                             <div class="exercise">
-                                <img src="https://media.istockphoto.com/id/493548216/photo/sporty-young-woman-doing-sits-up-at-gym.jpg?s=612x612&w=0&k=20&c=oiIFW5ND3hd8ubFL_E-dfALUOhf-itG029uS0UpMRrI=" alt="Sit-up"/>
+                                <img src="https://media.istockphoto.com/id/493548216/photo/sporty-young-woman-doing-sits-up-at-gym.jpg?s=612x612&w=0&k=20&c=oiIFW5ND3hd8ubFL_E-dfALUOhf-itG029uS0UpMRrI="
+                                    alt="Sit-up" />
                                 <span>Sit-up</span>
                             </div>
                         </li>
@@ -331,7 +496,8 @@
                     <div class="swiper-slide">
                         <li onclick="toggleProgress(this, 'dipsChart')">
                             <div class="exercise">
-                                <img src="https://thumbs.dreamstime.com/z/sportswoman-doing-triceps-dips-parallel-bars-nature-beautiful-fitness-woman-exercise-park-119485696.jpg" alt="Dips"/>
+                                <img src="https://thumbs.dreamstime.com/z/sportswoman-doing-triceps-dips-parallel-bars-nature-beautiful-fitness-woman-exercise-park-119485696.jpg"
+                                    alt="Dips" />
                                 <span>Dips</span>
                             </div>
                         </li>
@@ -421,7 +587,7 @@
             modal.style.display = "block";
 
             // Remove previous chart instance if any
-            if(window.currentChart) {
+            if (window.currentChart) {
                 window.currentChart.destroy();
             }
 
@@ -433,16 +599,16 @@
             var modal = document.getElementById('modal');
             modal.style.display = "none";
             // Destroy chart when closing modal
-            if(window.currentChart) {
+            if (window.currentChart) {
                 window.currentChart.destroy();
                 window.currentChart = null;
             }
         }
 
         // Close modal when clicking outside the modal content
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             var modal = document.getElementById('modal');
-            if(event.target == modal) {
+            if (event.target == modal) {
                 closeModal();
             }
         }
@@ -591,4 +757,5 @@
         }
     </script>
 </body>
+
 </html>
