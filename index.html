@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none; /* Make content not selectable */
         }
 
         /* Set the body to prevent scrolling and use flex layout */
@@ -16,7 +17,6 @@
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background-color: #121212;
             color: #000000;
-            line-height: 1.6;
             overflow: hidden; /* Prevent scrolling */
             height: 100vh;    /* Full viewport height */
             display: flex;
@@ -78,26 +78,23 @@
             align-items: center;
         }
 
+        /* Adjust gallery images to be the same size */
         .gallery-swiper .swiper-slide a img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
+            width: 320px;
+            height: 320px;
+            object-fit: cover;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(255,255,255,0.1);
             cursor: pointer;
         }
 
+        /* Adjust exercise images to be the same size */
         .exercises-swiper .swiper-slide li {
             list-style: none;
-            background: #e74c3c;
-            color: #000000;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(255,255,255,0.1);
-            width: 100%;
-            max-width: 200px;
-            height: auto;
-            position: relative;
-            overflow: hidden;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            background: none;
             cursor: pointer;
             transition: transform 0.2s;
         }
@@ -107,25 +104,30 @@
         }
 
         .exercise {
+            width: 200px;
+            height: 200px;
+            position: relative;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            position: relative;
         }
 
         .exercise img {
-            width: 100%;
-            height: auto;
+            width: 130%;
+            height: 100%;
             object-fit: cover;
             border-radius: 5px;
             border: 2px solid #333;
         }
 
         .exercise span {
-            margin-top: 5px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
             text-align: center;
+            background: rgba(0,0,0,0.5);
+            color: #ffffff;
+            padding: 5px 0;
         }
 
         h3 {
@@ -180,17 +182,23 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 900px) {
+        @media (max-width: 1080px) {
             .gallery-swiper .swiper-slide a img,
-            .exercises-swiper .swiper-slide li {
-                max-width: 150px;
+            .exercises-swiper .swiper-slide li,
+            .exercise,
+            .exercise img {
+                width: 270px;
+                height: 270px;
             }
         }
 
         @media (max-width: 600px) {
             .gallery-swiper .swiper-slide a img,
-            .exercises-swiper .swiper-slide li {
-                max-width: 100px;
+            .exercises-swiper .swiper-slide li,
+            .exercise,
+            .exercise img {
+                width: 100px;
+                height: 100px;
             }
         }
     </style>
@@ -202,7 +210,7 @@
 <body>
     <header>
         <h1>UNSATISFIED - Ege Fitness</h1>
-        <h2>Ege Tekin</h2>
+        <h2>Ege Cinel</h2>
     </header>
 
     <div class="container">
@@ -213,19 +221,19 @@
                 <div class="swiper-wrapper">
                     <!-- Swiper slides -->
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img src="https://pbs.twimg.com/profile_images/1350858632603312131/PVyKITHm_400x400.jpg" alt="Photo 1"/></a>
+                        <a href="" data-lightbox="mygallery"><img src="https://pbs.twimg.com/media/FcJr7fnXoAAfv-h.jpg" alt="Photo 1"/></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxwS9z6qymM3iqsXQrv05fBOdgdhdEWBk9IQ&s" alt="Photo 2"/></a>
+                        <a href="#" data-lightbox="mygallery"><img src="https://cdn.bolgegundem.com.tr/gallery/12381_2.jpg" alt="Photo 2"/></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img src="https://i.scdn.co/image/ab67616d0000b27376f598157b318a79f26c79e5" alt="Photo 3"/></a>
+                        <a href="#" data-lightbox="mygallery"><img src="https://img-s1.onedio.com/id-62b219e91e6cbf96537d9106/rev-0/w-600/h-750/f-jpg/s-a7f0cfbb4aa6979528b47124ccce9ea0c48663e0.jpg" alt="Photo 3"/></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img src="https://pbs.twimg.com/profile_images/1350858632603312131/PVyKITHm_400x400.jpg" alt="Photo 4"/></a>
+                        <a href="#" data-lightbox="mygallery"><img src="https://www.technopat.net/sosyal/eklenti/d948f88b-18b1-4e0d-b22a-1eda8af72e3e-jpeg.1472637/" alt="Photo 4"/></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img src="https://pbs.twimg.com/profile_images/1350858632603312131/PVyKITHm_400x400.jpg" alt="Photo 5"/></a>
+                        <a href="#" data-lightbox="mygallery"><img src="https://gymsozluk.com/wp-content/uploads/2023/06/Ege-Fitness.webp" alt="Photo 5"/></a>
                     </div>
                     <!-- Add more photos as needed -->
                 </div>
@@ -297,7 +305,7 @@
                     <div class="swiper-slide">
                         <li onclick="toggleProgress(this, 'dipsChart')">
                             <div class="exercise">
-                                <img src="https://welltech.com/wp-content/uploads/2022/09/What-Muscles-Do-Dips-Work-Most.jpg" alt="Dips"/>
+                                <img src="https://thumbs.dreamstime.com/z/sportswoman-doing-triceps-dips-parallel-bars-nature-beautiful-fitness-woman-exercise-park-119485696.jpg" alt="Dips"/>
                                 <span>Dips</span>
                             </div>
                         </li>
@@ -325,7 +333,7 @@
     <script>
         // Initialize Swiper for gallery with breakpoints
         var gallerySwiper = new Swiper('.gallery-swiper', {
-            slidesPerView: 3,
+            slidesPerView: 6,
             spaceBetween: 20,
             loop: true,
             centeredSlides: true,
@@ -339,14 +347,23 @@
                 },
                 900: {
                     slidesPerView: 3,
+                },
+                1200: {
+                    slidesPerView: 3,
+                },
+                1500: {
+                    slidesPerView: 3,
+                },
+                1800: {
+                    slidesPerView: 3,
                 }
             }
         });
 
         // Initialize Swiper for exercises with breakpoints
         var exercisesSwiper = new Swiper('.exercises-swiper', {
-            slidesPerView: 3,
-            spaceBetween: 20,
+            slidesPerView: 6,
+            spaceBetween: -180,
             loop: true,
             centeredSlides: true,
             grabCursor: true,
@@ -358,6 +375,15 @@
                     slidesPerView: 2,
                 },
                 900: {
+                    slidesPerView: 3,
+                },
+                1200: {
+                    slidesPerView: 3,
+                },
+                1500: {
+                    slidesPerView: 3,
+                },
+                1800: {
                     slidesPerView: 3,
                 }
             }
@@ -507,11 +533,11 @@
                         title: {
                             display: true,
                             text: label,
-                            color: '#000000'
+                            color: '#ffffff'
                         },
                         legend: {
                             labels: {
-                                color: '#000000'
+                                color: '#ffffff'
                             }
                         }
                     },
@@ -519,7 +545,7 @@
                         y: {
                             beginAtZero: true,
                             ticks: {
-                                color: '#000000'
+                                color: '#ffffff'
                             },
                             grid: {
                                 color: 'rgba(255,255,255,0.1)'
@@ -527,7 +553,7 @@
                         },
                         x: {
                             ticks: {
-                                color: '#000000'
+                                color: '#ffffff'
                             },
                             grid: {
                                 color: 'rgba(255,255,255,0.1)'
