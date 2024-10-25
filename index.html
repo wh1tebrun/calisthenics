@@ -21,31 +21,20 @@
             background-color: #121212;
             color: #ffffff;
             /* Changed to white for better contrast */
-            height: 100vh;
+            min-height: 100vh;
             /* Full viewport height */
             display: flex;
             flex-direction: column;
         }
-        .hyperlink{
+
+        .hyperlink {
             text-decoration: none;
         }
 
-        /* unvisited link */
-        a:link {
-            color: #e74c3c;
-        }
-
-        /* visited link */
-        a:visited {
-            color: #e74c3c;
-        }
-
-        /* mouse over link */
-        a:hover {
-            color: #e74c3c;
-        }
-
-        /* selected link */
+        /* Link styles */
+        a:link,
+        a:visited,
+        a:hover,
         a:active {
             color: #e74c3c;
         }
@@ -134,7 +123,7 @@
             color: #ffffff;
         }
 
-        /* Top Projects styling */
+        /* Shorts Section styling */
         .top-projects {
             margin: 20px auto;
             width: 80%;
@@ -153,6 +142,12 @@
             list-style: none;
             padding: 0;
             counter-reset: item;
+            max-height: 380px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            /* For Firefox */
+            scrollbar-color: #e74c3c #121212;
+            /* For Firefox */
         }
 
         .top-projects li {
@@ -175,6 +170,20 @@
             font-weight: bold;
             color: #e74c3c;
             margin-right: 5px;
+        }
+
+        /* Customize scrollbar for WebKit browsers */
+        .top-projects ol::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .top-projects ol::-webkit-scrollbar-thumb {
+            background-color: #e74c3c;
+            border-radius: 4px;
+        }
+
+        .top-projects ol::-webkit-scrollbar-track {
+            background-color: #121212;
         }
 
         .photo-gallery,
@@ -220,48 +229,6 @@
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
             cursor: pointer;
-        }
-
-        /* Adjust exercise images to be the same size */
-        .exercises-swiper .swiper-slide li {
-            list-style: none;
-            width: 200px;
-            height: 200px;
-            margin: 0 auto;
-            background: none;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .exercises-swiper .swiper-slide li:hover {
-            transform: scale(1.05);
-        }
-
-        .exercise {
-            width: 200px;
-            height: 200px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .exercise img {
-            width: 130%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 5px;
-            border: 2px solid #333;
-        }
-
-        .exercise span {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.5);
-            color: #ffffff;
-            padding: 5px 0;
         }
 
         h3 {
@@ -318,10 +285,7 @@
         /* Responsive Design */
         @media (max-width: 1080px) {
 
-            .gallery-swiper .swiper-slide a img,
-            .exercises-swiper .swiper-slide li,
-            .exercise,
-            .exercise img {
+            .gallery-swiper .swiper-slide a img {
                 width: 270px;
                 height: 270px;
             }
@@ -329,10 +293,7 @@
 
         @media (max-width: 600px) {
 
-            .gallery-swiper .swiper-slide a img,
-            .exercises-swiper .swiper-slide li,
-            .exercise,
-            .exercise img {
+            .gallery-swiper .swiper-slide a img {
                 width: 100px;
                 height: 100px;
             }
@@ -367,37 +328,60 @@
             </blockquote>
         </div>
 
-        <!-- Top Projects Section -->
+        <!-- Shorts Section -->
         <div class="top-projects">
             <h3>Shorts</h3>
             <ol>
+                <!-- List of shorts -->
                 <li>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"
-                        alt="Yarrak Hasan Logo">
-                    <a href="https://www.instagram.com/p/DBWUhejt0b8/" target="_blank" class="hyperlink">Yarrak Hasan!</a>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Short 1 Logo">
+                    <a href="https://www.instagram.com/p/DBWUhejt0b8/" target="_blank" class="hyperlink">Yarrak
+                        Hasan!</a>
+                </li>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Short 2 Logo">
+                    <a href="https://www.instagram.com/p/C8sDAKpoKPv/" target="_blank" class="hyperlink">Ne demiş
+                        Allah?</a>
                 </li>
                 <li>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"
-                        alt="Yarrak Hasan Logo">
-                    <a href="https://www.instagram.com/p/C8sDAKpoKPv/" target="_blank" class="hyperlink">Ne demiş Allah?</a>
-                </li>
-                
-                <li>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png"
-                        alt="Yarrak Hasan Logo">
-                    <a href="https://www.youtube.com/shorts/bKO4sRm32uk" target="_blank" class="hyperlink">Atatürk ne demiş?</a>
+                        alt="Short 3 Logo">
+                    <a href="https://www.youtube.com/shorts/bKO4sRm32uk" target="_blank" class="hyperlink">Atatürk ne
+                        demiş?</a>
                 </li>
                 <li>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png"
-                        alt="Yarrak Hasan Logo">
-                    <a href="https://www.youtube.com/shorts/w4z2em89jBw" target="_blank" class="hyperlink">Siktir git cehenneme!</a>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1200px-Instagram_icon.png"
+                        alt="Short 4 Logo">
+                    <a href="https://www.youtube.com/shorts/w4z2em89jBw" target="_blank" class="hyperlink">Siktir git
+                        cehenneme!</a>
                 </li>
-                
                 <li>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png"
-                        alt="Yarrak Hasan Logo">
-                    <a href="https://www.youtube.com/watch?v=8Uxc1EyUv1U" target="_blank" class="hyperlink">Benim dinim sıkı çalışmak.</a>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Short 5 Logo">
+                    <a href="https://www.youtube.com/watch?v=8Uxc1EyUv1U" target="_blank" class="hyperlink">Benim dinim
+                        sıkı çalışmak.</a>
                 </li>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Short 6 Logo">
+                    <a href="https://www.youtube.com/shorts/example1" target="_blank" class="hyperlink">Stretching
+                        Techniques</a>
+                </li>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Short 7 Logo">
+                    <a href="https://www.youtube.com/shorts/example2" target="_blank" class="hyperlink">Cardio
+                        Exercises</a>
+                </li>
+                <!-- Add more shorts as needed -->
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Short 6 Logo">
+                    <a href="https://www.youtube.com/shorts/example1" target="_blank" class="hyperlink">Stretching
+                        Techniques</a>
+                </li>
+                <li>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="Short 7 Logo">
+                    <a href="https://www.youtube.com/shorts/example2" target="_blank" class="hyperlink">Cardio
+                        Exercises</a>
+                </li>
+                <!-- Continue adding more shorts -->
             </ol>
         </div>
 
@@ -408,25 +392,25 @@
                 <div class="swiper-wrapper">
                     <!-- Swiper slides -->
                     <div class="swiper-slide">
-                        <a href="" data-lightbox="mygallery"><img src="https://pbs.twimg.com/media/FcJr7fnXoAAfv-h.jpg"
-                                alt="Photo 1" /></a>
+                        <a href="https://example.com/photo1_large.jpg" data-lightbox="mygallery"><img
+                                src="https://pbs.twimg.com/media/FcJr7fnXoAAfv-h.jpg" alt="Photo 1" /></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img
+                        <a href="https://example.com/photo2_large.jpg" data-lightbox="mygallery"><img
                                 src="https://cdn.bolgegundem.com.tr/gallery/12381_2.jpg" alt="Photo 2" /></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img
+                        <a href="https://example.com/photo3_large.jpg" data-lightbox="mygallery"><img
                                 src="https://img-s1.onedio.com/id-62b219e91e6cbf96537d9106/rev-0/w-600/h-750/f-jpg/s-a7f0cfbb4aa6979528b47124ccce9ea0c48663e0.jpg"
                                 alt="Photo 3" /></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img
+                        <a href="https://example.com/photo4_large.jpg" data-lightbox="mygallery"><img
                                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRKTZOANfGO0AwU9bUBqbI21lDtMlf4NqbgQ&s"
                                 alt="Photo 4" /></a>
                     </div>
                     <div class="swiper-slide">
-                        <a href="#" data-lightbox="mygallery"><img
+                        <a href="https://example.com/photo5_large.jpg" data-lightbox="mygallery"><img
                                 src="https://gymsozluk.com/wp-content/uploads/2023/06/Ege-Fitness.webp"
                                 alt="Photo 5" /></a>
                     </div>
@@ -435,256 +419,107 @@
             </div>
         </div>
 
-        
-
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
-            <canvas id="modalChart" width="600" height="600"></canvas>
+        <!-- Modal -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal()">&times;</span>
+                <canvas id="modalChart" width="600" height="600"></canvas>
+            </div>
         </div>
-    </div>
 
-    <!-- Include Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Include Lightbox JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-    <!-- Include Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script>
-        // Initialize Swiper for gallery with breakpoints
-        var gallerySwiper = new Swiper('.gallery-swiper', {
-            slidesPerView: 6,
-            spaceBetween: 20,
-            loop: true,
-            centeredSlides: true,
-            grabCursor: true,
-            breakpoints: {
-                0: {
-                    slidesPerView: 1,
-                },
-                600: {
-                    slidesPerView: 2,
-                },
-                900: {
-                    slidesPerView: 3,
-                },
-                1200: {
-                    slidesPerView: 3,
-                },
-                1500: {
-                    slidesPerView: 3,
-                },
-                1800: {
-                    slidesPerView: 3,
-                }
-            }
-        });
+        <!-- Include Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Include Lightbox JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+        <!-- Include Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 
-        // Initialize Swiper for exercises with breakpoints
-        var exercisesSwiper = new Swiper('.exercises-swiper', {
-            slidesPerView: 6,
-            spaceBetween: -180,
-            loop: true,
-            centeredSlides: true,
-            grabCursor: true,
-            breakpoints: {
-                0: {
-                    slidesPerView: 1,
-                },
-                600: {
-                    slidesPerView: 2,
-                },
-                900: {
-                    slidesPerView: 3,
-                },
-                1200: {
-                    slidesPerView: 3,
-                },
-                1500: {
-                    slidesPerView: 3,
-                },
-                1800: {
-                    slidesPerView: 3,
-                }
-            }
-        });
-
-        function toggleProgress(element, chartId) {
-            // Show the modal
-            var modal = document.getElementById('modal');
-            modal.style.display = "block";
-
-            // Remove previous chart instance if any
-            if (window.currentChart) {
-                window.currentChart.destroy();
-            }
-
-            // Create new chart
-            createChart('modalChart', chartId);
-        }
-
-        function closeModal() {
-            var modal = document.getElementById('modal');
-            modal.style.display = "none";
-            // Destroy chart when closing modal
-            if (window.currentChart) {
-                window.currentChart.destroy();
-                window.currentChart = null;
-            }
-        }
-
-        // Close modal when clicking outside the modal content
-        window.onclick = function (event) {
-            var modal = document.getElementById('modal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-
-        function createChart(canvasId, chartId) {
-            var ctx = document.getElementById(canvasId).getContext('2d');
-            var data, label;
-
-            // Define data based on chartId
-            if (chartId === 'benchPressChart') {
-                label = 'Bench Press Progress';
-                data = {
-                    labels: ['2019', '2020', '2021', '2022', '2023'],
-                    datasets: [{
-                        label: 'Weight (kg)',
-                        data: [60, 70, 80, 90, 100],
-                        backgroundColor: 'rgba(231, 76, 60, 0.2)',
-                        borderColor: 'rgba(231, 76, 60, 1)',
-                        borderWidth: 2
-                    }]
-                };
-            } else if (chartId === 'overHeadPressChart') {
-                label = 'Overhead Press Progress';
-                data = {
-                    labels: ['2019', '2020', '2021', '2022', '2023'],
-                    datasets: [{
-                        label: 'Weight (kg)',
-                        data: [45, 50, 60, 70, 80],
-                        backgroundColor: 'rgba(46, 204, 113, 0.2)',
-                        borderColor: 'rgba(46, 204, 113, 1)',
-                        borderWidth: 2
-                    }]
-                };
-            } else if (chartId === 'deadliftChart') {
-                label = 'Deadlift Progress';
-                data = {
-                    labels: ['2019', '2020', '2021', '2022', '2023'],
-                    datasets: [{
-                        label: 'Weight (kg)',
-                        data: [80, 100, 120, 140, 160],
-                        backgroundColor: 'rgba(241, 196, 15, 0.2)',
-                        borderColor: 'rgba(241, 196, 15, 1)',
-                        borderWidth: 2
-                    }]
-                };
-            } else if (chartId === 'legPressChart') {
-                label = 'Leg Press Progress';
-                data = {
-                    labels: ['2019', '2020', '2021', '2022', '2023'],
-                    datasets: [{
-                        label: 'Weight (kg)',
-                        data: [100, 150, 200, 250, 300],
-                        backgroundColor: 'rgba(26, 188, 156, 0.2)',
-                        borderColor: 'rgba(26, 188, 156, 1)',
-                        borderWidth: 2
-                    }]
-                };
-            } else if (chartId === 'pullUpsChart') {
-                label = 'Pull-ups Progress';
-                data = {
-                    labels: ['2019', '2020', '2021', '2022', '2023'],
-                    datasets: [{
-                        label: 'Reps',
-                        data: [5, 8, 10, 12, 15],
-                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
-                        borderColor: 'rgba(52, 152, 219, 1)',
-                        borderWidth: 2
-                    }]
-                };
-            } else if (chartId === 'pushUpsChart') {
-                label = 'Push-ups Progress';
-                data = {
-                    labels: ['2019', '2020', '2021', '2022', '2023'],
-                    datasets: [{
-                        label: 'Reps',
-                        data: [20, 30, 35, 40, 50],
-                        backgroundColor: 'rgba(155, 89, 182, 0.2)',
-                        borderColor: 'rgba(155, 89, 182, 1)',
-                        borderWidth: 2
-                    }]
-                };
-            } else if (chartId === 'sitUpChart') {
-                label = 'Sit-up Progress';
-                data = {
-                    labels: ['2019', '2020', '2021', '2022', '2023'],
-                    datasets: [{
-                        label: 'Reps',
-                        data: [30, 35, 40, 45, 50],
-                        backgroundColor: 'rgba(192, 57, 43, 0.2)',
-                        borderColor: 'rgba(192, 57, 43, 1)',
-                        borderWidth: 2
-                    }]
-                };
-            } else if (chartId === 'dipsChart') {
-                label = 'Dips Progress';
-                data = {
-                    labels: ['2019', '2020', '2021', '2022', '2023'],
-                    datasets: [{
-                        label: 'Reps',
-                        data: [10, 12, 15, 18, 20],
-                        backgroundColor: 'rgba(44, 62, 80, 0.2)',
-                        borderColor: 'rgba(44, 62, 80, 1)',
-                        borderWidth: 2
-                    }]
-                };
-            }
-
-            window.currentChart = new Chart(ctx, {
-                type: 'line',
-                data: data,
-                options: {
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: label,
-                            color: '#ffffff'
-                        },
-                        legend: {
-                            labels: {
-                                color: '#ffffff'
-                            }
-                        }
+        <!-- JavaScript Code -->
+        <script>
+            // Initialize Swiper for gallery with breakpoints
+            var gallerySwiper = new Swiper('.gallery-swiper', {
+                slidesPerView: 6,
+                spaceBetween: 20,
+                loop: true,
+                centeredSlides: true,
+                grabCursor: true,
+                breakpoints: {
+                    0: {
+                        slidesPerView: 1,
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: '#ffffff'
-                            },
-                            grid: {
-                                color: 'rgba(255,255,255,0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: '#ffffff'
-                            },
-                            grid: {
-                                color: 'rgba(255,255,255,0.1)'
-                            }
-                        }
+                    600: {
+                        slidesPerView: 2,
+                    },
+                    900: {
+                        slidesPerView: 3,
+                    },
+                    1200: {
+                        slidesPerView: 3,
+                    },
+                    1500: {
+                        slidesPerView: 3,
+                    },
+                    1800: {
+                        slidesPerView: 3,
                     }
                 }
             });
-        }
-    </script>
+
+            // Modal functionality (if needed)
+            function toggleProgress(element, chartId) {
+                // Show the modal
+                var modal = document.getElementById('modal');
+                modal.style.display = "block";
+
+                // Remove previous chart instance if any
+                if (window.currentChart) {
+                    window.currentChart.destroy();
+                }
+
+                // Create new chart
+                createChart('modalChart', chartId);
+            }
+
+            function closeModal() {
+                var modal = document.getElementById('modal');
+                modal.style.display = "none";
+                // Destroy chart when closing modal
+                if (window.currentChart) {
+                    window.currentChart.destroy();
+                    window.currentChart = null;
+                }
+            }
+
+            // Close modal when clicking outside the modal content
+            window.onclick = function (event) {
+                var modal = document.getElementById('modal');
+                if (event.target == modal) {
+                    closeModal();
+                }
+            }
+
+            function createChart(canvasId, chartId) {
+                var ctx = document.getElementById(canvasId).getContext('2d');
+                var data, label;
+
+                // Define data based on chartId
+                if (chartId === 'benchPressChart') {
+                    label = 'Bench Press Progress';
+                    data = {
+                        labels: ['2019', '2020', '2021', '2022', '2023'],
+                        datasets: [{
+                            label: 'Weight (kg)',
+                            data: [60, 70, 80, 90, 100],
+                            backgroundColor: 'rgba(231, 76, 60, 0.2)',
+                            borderColor: 'rgba(231, 76, 60, 1)',
+                            borderWidth: 2
+                        }]
+                    };
+                }
+                // Add more chart data as needed
+            }
+        </script>
+    </div>
 </body>
 
 </html>
