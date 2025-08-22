@@ -1,643 +1,277 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <title>UNSATISFIED - Ege Fitness</title>
-    <link rel="icon" href="https://gymsozluk.com/wp-content/uploads/2023/06/Ege-Fitness.webp" type="image/x-icon">
-    <style>
-        .hover-container {
-            position: relative;
-            display: inline-block;
-            margin: 20px;
-        }
+  <meta charset="UTF-8" />
+  <title>UNSATISFIED - Ege Fitness</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ege Fitness için hayran sayfası: kısa videolar, fotoğraflar ve alıntılar. Mobil uyumlu, hızlı ve erişilebilir deneyim." />
+  <!-- TODO: Kendi alan adınızı yazın -->
+  <!-- <link rel="canonical" href="https://siteniz.com/"> -->
 
-        .hover-area {
-            background-color: #e74c3c;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+  <link rel="icon" href="https://gymsozluk.com/wp-content/uploads/2023/06/Ege-Fitness.webp" type="image/x-icon">
 
-        /* Bilgilendirme Pop-up Sol Alt Köşe Stilleri */
-        .hover-container {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            /* Sayfanın sol alt köşesine yerleştirir */
-        }
+  <!-- Open Graph -->
+  <meta property="og:title" content="UNSATISFIED - Ege Fitness" />
+  <meta property="og:description" content="Ege Fitness hayran sayfası: shorts, fotoğraflar ve alıntılar." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://gymsozluk.com/wp-content/uploads/2023/06/Ege-Fitness.webp" />
 
-        .hover-area {
-            background-color: #e74c3c;
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+  <!-- Preconnect (CDN) -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-        .popup-text {
-            visibility: hidden;
-            width: 300px;
-            background-color: #121212;
-            color: #ffffff;
-            text-align: left;
-            border-radius: 6px;
-            padding: 15px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 0;
-            transform: translateY(0);
-            opacity: 0;
-            transition: opacity 0.3s;
-            border: 1px solid #e74c3c;
-        }
+  <!-- Lightbox CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        .hover-container:hover .popup-text {
-            visibility: visible;
-            opacity: 1;
-        }
+  <style>
+    :root{
+      --bg:#121212; --text:#fff; --accent:#e74c3c; --muted:#888;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:var(--bg); color:var(--text); line-height:1.5;
+      display:flex; flex-direction:column;
+    }
 
-        .popup-text::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 20px;
-            margin-left: -7px;
-            border-width: 7px;
-            border-style: solid;
-            border-color: #121212 transparent transparent transparent;
-        }
+    a{color:var(--accent); text-decoration:none}
+    a:focus,button:focus{outline:2px dashed var(--accent); outline-offset:3px}
 
-        /* Reset some default browser styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            user-select: none;
-            /* Make content not selectable */
-        }
+    header{
+      background:var(--accent); color:#000; padding:16px;
+    }
+    header h1, header h2{ text-align:center }
+    header h2{ font-weight:500; font-size:1.25rem; margin-top:6px }
+    .social-media{ text-align:center; margin-top:8px }
+    .social-media a{ color:#000; margin:0 10px; font-size:24px }
+    .social-media a:hover{ color:#fff }
 
-        /* Set the body to prevent scrolling and use flex layout */
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            /* Changed to white for better contrast */
-            min-height: 100vh;
-            /* Full viewport height */
-            display: flex;
-            flex-direction: column;
-        }
+    nav.skip a{ position:absolute; left:-9999px; top:auto }
+    nav.skip a:focus{ left:16px; top:16px; background:#000; color:#fff; padding:8px 12px; z-index:1000 }
 
-        /* Scrollbar'ın genel alanı */
-        ::-webkit-scrollbar {
-            width: 12px;
-            /* Kaydırma çubuğunun genişliği */
-            background-color: #000;
-            /* Arka plan rengi siyah */
-        }
+    .container{ width:min(1000px,90%); margin-inline:auto; flex:1; padding:20px 0 }
 
-        /* Kaydırma çubuğunun hareketli kısmı */
-        ::-webkit-scrollbar-thumb {
-            background-color: #555;
-            /* Kaydırma çubuğunun rengi */
-            border-radius: 6px;
-            /* Köşeleri yuvarlama */
-        }
+    .citations blockquote{
+      background:var(--accent); color:#000; border-left:5px solid #fff;
+      margin:20px auto; padding:20px; font-size:18px; border-radius:10px; position:relative;
+    }
 
-        /* Kaydırma çubuğunun üzerine gelindiğinde */
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: #888;
-            /* Hover efekti için renk değişimi */
-        }
+    h3{
+      border-bottom:2px solid var(--accent); padding-bottom:10px; margin:30px 0 16px;
+      color:var(--accent); text-align:center;
+    }
 
-        /* Kaydırma çubuğu rengi ve arka planı */
-        * {
-            scrollbar-width: thin;
-            /* Kaydırma çubuğu genişliği */
-            scrollbar-color: #e74c3c #000000;
-            /* Kaydırma çubuğu ve arka plan rengi */
-        }
+    /* Shorts */
+    .top-projects{ margin:10px auto; width:80% }
+    .top-projects ol{
+      list-style:none; padding:0; counter-reset:item;
+      max-height:380px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--accent) var(--bg);
+    }
+    .top-projects li{ display:flex; align-items:center; gap:12px; margin:10px 0 }
+    .top-projects li::before{ content: counter(item) ". "; counter-increment:item; font-weight:700; color:var(--accent) }
+    .top-projects li img{
+      width:50px; height:50px; border-radius:6px; object-fit:cover; flex:0 0 50px
+    }
 
+    /* Gallery */
+    .photo-gallery{ display:flex; flex-direction:column }
+    .swiper-container{ width:100%; overflow:hidden; margin-bottom:24px }
+    .swiper-slide{ display:flex; justify-content:center; align-items:center }
+    .gallery-swiper .swiper-slide a img{
+      width:320px; height:320px; object-fit:cover; border-radius:10px;
+      box-shadow:0 2px 5px rgba(255,255,255,.1);
+    }
 
-        .hyperlink {
-            text-decoration: none;
-        }
+    /* Info pop */
+    .info-fab{
+      position:fixed; left:16px; bottom:16px; z-index:20;
+      background:var(--accent); color:#fff; border:0; border-radius:999px;
+      padding:10px 14px; cursor:pointer; font-weight:600;
+    }
+    .popup{
+      position:fixed; left:16px; bottom:60px; max-width:min(92vw,420px);
+      background:#121212; border:1px solid var(--accent); color:#fff; padding:14px;
+      border-radius:10px; display:none; z-index:30;
+    }
+    .popup.visible{ display:block }
+    .popup .close{ background:transparent; border:0; color:#fff; font-size:20px; position:absolute; right:10px; top:6px; cursor:pointer }
 
-        /* Link styles */
-        a:link,
-        a:visited,
-        a:hover,
-        a:active {
-            color: #e74c3c;
-        }
+    /* Scrollbar */
+    ::-webkit-scrollbar{ width:12px; background:#000 }
+    ::-webkit-scrollbar-thumb{ background:#555; border-radius:6px }
+    ::-webkit-scrollbar-thumb:hover{ background:#888 }
 
-        header {
-            background: #e74c3c;
-            color: #000000;
-            padding: 20px 0;
-            flex-shrink: 0;
-            /* Prevent header from shrinking */
-        }
+    /* Responsive */
+    @media (max-width:1080px){
+      .gallery-swiper .swiper-slide a img{ width:270px; height:270px }
+    }
+    @media (max-width:600px){
+      header h2{ font-size:1.1rem }
+      .gallery-swiper .swiper-slide a img{ width:160px; height:160px }
+      .info-fab{ padding:8px 12px }
+    }
+  </style>
 
-        header h1 {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        header h2 {
-            text-align: center;
-            font-weight: normal;
-            font-size: 24px;
-        }
-
-        /* Social media icons styling */
-        .social-media {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .social-media a {
-            color: #000000;
-            /* Black color to match header text */
-            margin: 0 10px;
-            font-size: 24px;
-            transition: color 0.3s;
-        }
-
-        .social-media a:hover {
-            color: #ffffff;
-            /* Change color on hover */
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 0 auto;
-            flex-grow: 1;
-            /* Allow container to grow */
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Citations styling */
-        .citations {
-            margin: 20px auto;
-            width: 80%;
-        }
-
-        .citations blockquote {
-            background-color: #e74c3c;
-            /* Match the header background color */
-            color: #000000;
-            border-left: 5px solid #ffffff;
-            margin: 20px auto;
-            padding: 20px;
-            font-size: 18px;
-            border-radius: 10px;
-            position: relative;
-        }
-
-        .citations blockquote:before {
-            content: open-quote;
-            font-size: 50px;
-            position: absolute;
-            left: 10px;
-            top: -10px;
-            color: #ffffff;
-        }
-
-        .citations blockquote:after {
-            content: close-quote;
-            font-size: 50px;
-            position: absolute;
-            right: 10px;
-            bottom: -30px;
-            color: #ffffff;
-        }
-
-        /* Shorts Section styling */
-        .top-projects {
-            margin: 20px auto;
-            width: 80%;
-        }
-
-        .top-projects h3 {
-            color: #e74c3c;
-            /* Match the header color */
-            text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e74c3c;
-            padding-bottom: 10px;
-        }
-
-        .top-projects ol {
-            list-style: none;
-            padding: 0;
-            counter-reset: item;
-            max-height: 380px;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            /* For Firefox */
-            scrollbar-color: #e74c3c #121212;
-            /* For Firefox */
-        }
-
-        .top-projects li {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
-
-        .top-projects li img {
-            width: 50px;
-            height: 50px;
-            margin-right: 15px;
-            border-radius: 5px;
-        }
-
-        .top-projects li:before {
-            content: counter(item) ". ";
-            counter-increment: item;
-            font-weight: bold;
-            color: #e74c3c;
-            margin-right: 5px;
-        }
-
-        /* Customize scrollbar for WebKit browsers */
-        .top-projects ol::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .top-projects ol::-webkit-scrollbar-thumb {
-            background-color: #e74c3c;
-            border-radius: 4px;
-        }
-
-        .top-projects ol::-webkit-scrollbar-track {
-            background-color: #121212;
-        }
-
-        .photo-gallery,
-        .exercises {
-            flex-grow: 1;
-            /* Allow sections to grow */
-            overflow: hidden;
-            /* Hide overflow */
-            display: flex;
-            flex-direction: column;
-        }
-
-        .photo-gallery h3,
-        .exercises h3 {
-            margin: 70px 0;
-            text-align: center;
-            color: #e74c3c;
-            flex-shrink: 0;
-            /* Prevent h3 from shrinking */
-        }
-
-        /* Swiper styles */
-        .swiper-container {
-            width: 100%;
-            flex-grow: 1;
-            margin-bottom: 200px;
-            /* Allow Swiper to grow */
-            overflow: hidden;
-            /* Hide overflow */
-        }
-
-        .swiper-slide {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Adjust gallery images to be the same size */
-        .gallery-swiper .swiper-slide a img {
-            width: 320px;
-            height: 320px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-        }
-
-        h3 {
-            border-bottom: 2px solid #e74c3c;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-            color: #e74c3c;
-            text-align: center;
-        }
-
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .modal-content {
-            background-color: #121212;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 90vw;
-            height: 90vh;
-            max-width: 801px;
-            max-height: 801px;
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .close-button {
-            color: #aaa;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: #000000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1080px) {
-
-            .gallery-swiper .swiper-slide a img {
-                width: 270px;
-                height: 270px;
-            }
-        }
-
-        @media (max-width: 600px) {
-
-            .gallery-swiper .swiper-slide a img {
-                width: 100px;
-                height: 100px;
-            }
-        }
-    </style>
-    <!-- Include Lightbox CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
-    <!-- Include Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-    <!-- Include Font Awesome for social media icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Organization Schema (yardımcı SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Ege Fitness Fan",
+    "url":"https://ornek-alan-adi.net/",
+    "sameAs":[
+      "https://www.instagram.com/egefitness/",
+      "https://x.com/OutofEgefitness",
+      "https://www.youtube.com/@EgeFitness"
+    ]
+  }
+  </script>
 </head>
-
 <body>
-    <header>
-        <h1>UNSATISFIED - Ege Fitness</h1>
-        <h2>a.k.a. Ege Cinel</h2>
-        <!-- Social Media Links -->
-        <div class="social-media">
-            <a href="https://www.instagram.com/egefitness/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://x.com/OutofEgefitness" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.youtube.com/@EgeFitness" target="_blank"><i class="fab fa-youtube"></i></a>
-        </div>
-    </header>
+  <nav class="skip"><a href="#main">İçeriğe atla</a></nav>
 
-    <div class="container">
-        <!-- Citations Section -->
-        <div class="citations">
-            <blockquote>
-                "Hey, hey, hey! What's happening, YouTube? Ege Fitness back in business—actually, always in business!" -
-                Ege Fitness
-            </blockquote>
-        </div>
-
-        <!-- Bilgilendirme Pop-up -->
-        <div class="hover-container">
-            <div class="hover-area">Information</div>
-            <div class="popup-text">
-                Bu web sitesi Ege Fitness tarafından yapılmamıştır. Eğlence amaçlı ve kar amacı gütmeden onu seven başka
-                birisi tarafından yapılmıştır. Site reklam yapmak ve benzeri bir suretle hiçbir platformda başkalarıyla
-                paylaşılmamıştır ve paylaşılmayacaktır. Sitenin amacı herkesin tanıyıp esprilerine
-                güldüğü Ege Fitness'ın videolarını bir kez daha farklı bir yoldan insanların önüne sunmaktır. Bütün
-                içerikler
-                İnternet'te herkesin ulaşabileceği kaynaklardan
-                alınmıştır. Ege Fitness talep ettiği takdirde sitenin bütün içeriklerini sileceğimi
-                kabul ediyorum. Kendisine bu siteyle ilgili sosyal medyadan ulaşmaya çalıştım ancak dönüş alamadım.
-                Herhangi bir rahatsızlık durumunda anında siteyi kaldıracağımın taahhütünü şimdiden veriyorum. Sitenin
-                kaldırılması ile ilgili bana ulaşmak için Email: et130@students.uni-freiburg.de adresine Ege Fitness
-                olduğu doğrulanmış bir E-mail adresinden E-mail atmanız yeterli olacaktır. Tarih:
-                25/10/2024 Yer: Almanya
-            </div>
-        </div>
-
-
-        <!-- Shorts Section -->
-        <div class="top-projects">
-            <h3>Shorts</h3>
-            <ol>
-                <!-- List of shorts -->
-                <li>
-                    <img src="https://mertkarabay.com/assets/img/Logoinstagram.svg" alt="Short 1 Logo">
-                    <a href="https://www.instagram.com/p/DBWUhejt0b8/" target="_blank" class="hyperlink">Ulan dağa
-                        çıktım</a>
-                </li>
-                <li>
-                    <img src="https://mertkarabay.com/assets/img/Logoinstagram.svg" alt="Short 2 Logo">
-                    <a href="https://www.instagram.com/p/C8sDAKpoKPv/" target="_blank" class="hyperlink">Bütün iyi bilen
-                        insanlar söylemiş</a>
-                </li>
-                <li>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEjIsQcn8NwYWhwISL74xXLGtRHeW1Mn67g&s"
-                        alt="Short 3 Logo">
-                    <a href="https://www.youtube.com/shorts/bKO4sRm32uk" target="_blank" class="hyperlink">Ben
-                        sporcunun, ben bireyin zeki çevik ahlaklı, spor fitness yapanını severim gibi bişey </a>
-                </li>
-                <li>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEjIsQcn8NwYWhwISL74xXLGtRHeW1Mn67g&s"
-                        alt="Short 4 Logo">
-                    <a href="https://www.youtube.com/shorts/w4z2em89jBw" target="_blank" class="hyperlink">Günahlarını
-                        affetim vücuduna bakayım kardeşim</a>
-                </li>
-                <li>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEjIsQcn8NwYWhwISL74xXLGtRHeW1Mn67g&s"
-                        alt="Short 5 Logo">
-                    <a href="https://www.youtube.com/watch?v=8Uxc1EyUv1U" target="_blank" class="hyperlink">Benim dinim
-                        sıkı çalışmak</a>
-                </li>
-                <li>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEjIsQcn8NwYWhwISL74xXLGtRHeW1Mn67g&s"
-                        alt="Short 6 Logo">
-                    <a href="https://www.youtube.com/shorts/example1" target="_blank" class="hyperlink">Stretching
-                        Techniques</a>
-                </li>
-                <li>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEjIsQcn8NwYWhwISL74xXLGtRHeW1Mn67g&s"
-                        alt="Short 7 Logo">
-                    <a href="https://www.youtube.com/shorts/example2" target="_blank" class="hyperlink">Cardio
-                        Exercises</a>
-                </li>
-                <!-- Add more shorts as needed -->
-                <li>
-                    <img src="https://mertkarabay.com/assets/img/Logoinstagram.svg" alt="Short 6 Logo">
-                    <a href="https://www.youtube.com/shorts/example1" target="_blank" class="hyperlink">Stretching
-                        Techniques</a>
-                </li>
-                <li>
-                    <img src="https://mertkarabay.com/assets/img/Logoinstagram.svg" alt="Short 7 Logo">
-                    <a href="https://www.youtube.com/shorts/example2" target="_blank" class="hyperlink">Cardio
-                        Exercises</a>
-                </li>
-                <!-- Continue adding more shorts -->
-            </ol>
-        </div>
-
-        <!-- Photo Gallery -->
-        <div class="photo-gallery">
-            <h3>Photos</h3>
-            <div class="swiper-container gallery-swiper">
-                <div class="swiper-wrapper">
-                    <!-- Swiper slides -->
-                    <div class="swiper-slide">
-                        <a href="https://example.com/photo1_large.jpg" data-lightbox="mygallery"><img
-                                src="https://pbs.twimg.com/media/FcJr7fnXoAAfv-h.jpg" alt="Photo 1" /></a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="https://example.com/photo2_large.jpg" data-lightbox="mygallery"><img
-                                src="https://cdn.bolgegundem.com.tr/gallery/12381_2.jpg" alt="Photo 2" /></a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="https://example.com/photo3_large.jpg" data-lightbox="mygallery"><img
-                                src="https://img-s1.onedio.com/id-62b219e91e6cbf96537d9106/rev-0/w-600/h-750/f-jpg/s-a7f0cfbb4aa6979528b47124ccce9ea0c48663e0.jpg"
-                                alt="Photo 3" /></a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="https://example.com/photo4_large.jpg" data-lightbox="mygallery"><img
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRKTZOANfGO0AwU9bUBqbI21lDtMlf4NqbgQ&s"
-                                alt="Photo 4" /></a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="https://example.com/photo5_large.jpg" data-lightbox="mygallery"><img
-                                src="https://gymsozluk.com/wp-content/uploads/2023/06/Ege-Fitness.webp"
-                                alt="Photo 5" /></a>
-                    </div>
-                    <!-- Add more photos as needed -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal -->
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal()">&times;</span>
-                <canvas id="modalChart" width="600" height="600"></canvas>
-            </div>
-        </div>
-
-        <!-- Include Chart.js -->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <!-- Include Lightbox JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
-        <!-- Include Swiper JS -->
-        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
-        <!-- JavaScript Code -->
-        <script>
-            // Initialize Swiper for gallery with breakpoints
-            var gallerySwiper = new Swiper('.gallery-swiper', {
-                slidesPerView: 6,
-                spaceBetween: 20,
-                loop: true,
-                centeredSlides: true,
-                grabCursor: true,
-                breakpoints: {
-                    0: {
-                        slidesPerView: 1,
-                    },
-                    600: {
-                        slidesPerView: 2,
-                    },
-                    900: {
-                        slidesPerView: 3,
-                    },
-                    1200: {
-                        slidesPerView: 3,
-                    },
-                    1500: {
-                        slidesPerView: 3,
-                    },
-                    1800: {
-                        slidesPerView: 3,
-                    }
-                }
-            });
-
-            // Modal functionality (if needed)
-            function toggleProgress(element, chartId) {
-                // Show the modal
-                var modal = document.getElementById('modal');
-                modal.style.display = "block";
-
-                // Remove previous chart instance if any
-                if (window.currentChart) {
-                    window.currentChart.destroy();
-                }
-
-                // Create new chart
-                createChart('modalChart', chartId);
-            }
-
-            function closeModal() {
-                var modal = document.getElementById('modal');
-                modal.style.display = "none";
-                // Destroy chart when closing modal
-                if (window.currentChart) {
-                    window.currentChart.destroy();
-                    window.currentChart = null;
-                }
-            }
-
-            // Close modal when clicking outside the modal content
-            window.onclick = function (event) {
-                var modal = document.getElementById('modal');
-                if (event.target == modal) {
-                    closeModal();
-                }
-            }
-
-            function createChart(canvasId, chartId) {
-                var ctx = document.getElementById(canvasId).getContext('2d');
-                var data, label;
-
-                // Define data based on chartId
-                if (chartId === 'benchPressChart') {
-                    label = 'Bench Press Progress';
-                    data = {
-                        labels: ['2019', '2020', '2021', '2022', '2023'],
-                        datasets: [{
-                            label: 'Weight (kg)',
-                            data: [60, 70, 80, 90, 100],
-                            backgroundColor: 'rgba(231, 76, 60, 0.2)',
-                            borderColor: 'rgba(231, 76, 60, 1)',
-                            borderWidth: 2
-                        }]
-                    };
-                }
-                // Add more chart data as needed
-            }
-        </script>
+  <header>
+    <h1>UNSATISFIED - Ege Fitness</h1>
+    <h2>a.k.a. Ege Cinel</h2>
+    <div class="social-media" aria-label="Sosyal medya">
+      <a href="https://www.instagram.com/egefitness/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://x.com/OutofEgefitness" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.youtube.com/@EgeFitness" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
     </div>
-</body>
+  </header>
 
+  <main id="main" class="container">
+    <section class="citations" aria-labelledby="quote">
+      <h3 id="quote">Alıntı</h3>
+      <blockquote>
+        “Hey, hey, hey! What's happening, YouTube? Ege Fitness back in business—actually, always in business!” — Ege Fitness
+      </blockquote>
+    </section>
+
+    <!-- Bilgilendirme Pop-up (erişilebilir) -->
+    <button class="info-fab" id="infoBtn" aria-controls="infoPopup" aria-expanded="false">Bilgi</button>
+    <aside id="infoPopup" class="popup" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+      <button class="close" id="closeInfo" aria-label="Kapat">×</button>
+      <h4 id="infoTitle" style="margin-bottom:8px">Bilgilendirme</h4>
+      <p style="font-size:.95rem">
+        Bu web sitesi Ege Fitness tarafından yapılmamıştır. Eğlence amaçlı ve kâr amacı gütmeden yapılmıştır. İçerikler herkese açık kaynaklardan alınmıştır.
+        Ege Fitness isterse içerikler kaldırılacaktır. İletişim: <a href="mailto:et130@students.uni-freiburg.de">et130@students.uni-freiburg.de</a> (25/10/2024, Almanya)
+      </p>
+    </aside>
+
+    <!-- Shorts -->
+    <section class="top-projects" aria-labelledby="shorts">
+      <h3 id="shorts">Shorts</h3>
+      <ol>
+        <li>
+          <img src="https://mertkarabay.com/assets/img/Logoinstagram.svg" alt="Instagram simgesi" width="50" height="50" loading="lazy" decoding="async">
+          <a href="https://www.instagram.com/p/DBWUhejt0b8/" target="_blank" rel="noopener noreferrer">Ulan dağa çıktım</a>
+        </li>
+        <li>
+          <img src="https://mertkarabay.com/assets/img/Logoinstagram.svg" alt="Instagram simgesi" width="50" height="50" loading="lazy" decoding="async">
+          <a href="https://www.instagram.com/p/C8sDAKpoKPv/" target="_blank" rel="noopener noreferrer">Bütün iyi bilen insanlar söylemiş</a>
+        </li>
+        <li>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEjIsQcn8NwYWhwISL74xXLGtRHeW1Mn67g&s" alt="YouTube simgesi" width="50" height="50" loading="lazy" decoding="async">
+          <a href="https://www.youtube.com/shorts/bKO4sRm32uk" target="_blank" rel="noopener noreferrer">Zeki çevik ahlaklı… (short)</a>
+        </li>
+        <li>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEjIsQcn8NwYWhwISL74xXLGtRHeW1Mn67g&s" alt="YouTube simgesi" width="50" height="50" loading="lazy" decoding="async">
+          <a href="https://www.youtube.com/shorts/w4z2em89jBw" target="_blank" rel="noopener noreferrer">Günahlarını affettim… (short)</a>
+        </li>
+        <li>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEjIsQcn8NwYWhwISL74xXLGtRHeW1Mn67g&s" alt="YouTube simgesi" width="50" height="50" loading="lazy" decoding="async">
+          <a href="https://www.youtube.com/watch?v=8Uxc1EyUv1U" target="_blank" rel="noopener noreferrer">Benim dinim sıkı çalışmak</a>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Foto Galeri -->
+    <section class="photo-gallery" aria-labelledby="photos">
+      <h3 id="photos">Fotoğraflar</h3>
+      <div class="swiper-container gallery-swiper" aria-label="Fotoğraf galerisi">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <a href="https://pbs.twimg.com/media/FcJr7fnXoAAfv-h.jpg" data-lightbox="mygallery">
+              <img src="https://pbs.twimg.com/media/FcJr7fnXoAAfv-h.jpg" alt="Ege Fitness fotoğrafı 1"
+                   width="320" height="320" loading="lazy" decoding="async" />
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="https://cdn.bolgegundem.com.tr/gallery/12381_2.jpg" data-lightbox="mygallery">
+              <img src="https://cdn.bolgegundem.com.tr/gallery/12381_2.jpg" alt="Ege Fitness fotoğrafı 2"
+                   width="320" height="320" loading="lazy" decoding="async" />
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="https://img-s1.onedio.com/id-62b219e91e6cbf96537d9106/rev-0/w-600/h-750/f-jpg/s-a7f0cfbb4aa6979528b47124ccce9ea0c48663e0.jpg" data-lightbox="mygallery">
+              <img src="https://img-s1.onedio.com/id-62b219e91e6cbf96537d9106/rev-0/w-600/h-750/f-jpg/s-a7f0cfbb4aa6979528b47124ccce9ea0c48663e0.jpg" alt="Ege Fitness fotoğrafı 3"
+                   width="320" height="320" loading="lazy" decoding="async" />
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRKTZOANfGO0AwU9bUBqbI21lDtMlf4NqbgQ&s" data-lightbox="mygallery">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRKTZOANfGO0AwU9bUBqbI21lDtMlf4NqbgQ&s" alt="Ege Fitness fotoğrafı 4"
+                   width="320" height="320" loading="lazy" decoding="async" />
+            </a>
+          </div>
+          <div class="swiper-slide">
+            <a href="https://gymsozluk.com/wp-content/uploads/2023/06/Ege-Fitness.webp" data-lightbox="mygallery">
+              <img src="https://gymsozluk.com/wp-content/uploads/2023/06/Ege-Fitness.webp" alt="Ege Fitness fotoğrafı 5"
+                   width="320" height="320" loading="lazy" decoding="async" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal (grafik alt yapısı kalsın) -->
+    <div id="modal" class="modal" hidden></div>
+  </main>
+
+  <!-- JS: defer ile bloklamayan yükleme -->
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+  <script>
+    // Swiper (duyarlı kırılımlar)
+    document.addEventListener('DOMContentLoaded', function(){
+      new Swiper('.gallery-swiper', {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        centeredSlides: true,
+        grabCursor: true,
+        breakpoints: {
+          0:   { slidesPerView: 1 },
+          600: { slidesPerView: 2 },
+          900: { slidesPerView: 3 }
+        }
+      });
+
+      // Bilgi popup
+      const btn = document.getElementById('infoBtn');
+      const pop = document.getElementById('infoPopup');
+      const close = document.getElementById('closeInfo');
+      const toggle = (show) => {
+        pop.classList.toggle('visible', show);
+        btn.setAttribute('aria-expanded', show ? 'true' : 'false');
+      };
+      btn.addEventListener('click', () => toggle(!pop.classList.contains('visible')));
+      close.addEventListener('click', () => toggle(false));
+      document.addEventListener('keydown', e => { if(e.key==='Escape') toggle(false); });
+      document.addEventListener('click', e => {
+        if(pop.classList.contains('visible') && !pop.contains(e.target) && e.target!==btn) toggle(false);
+      });
+    });
+  </script>
+
+  <noscript>Bu site daha iyi bir deneyim için JavaScript kullanır. Lütfen JS’i etkinleştirin.</noscript>
+</body>
 </html>
